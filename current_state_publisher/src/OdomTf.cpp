@@ -2,7 +2,7 @@
 //wsn, March 2016
 //implementation of member functions of OdomTf class
 
-#include <odom_tf/odom_tf.h>
+#include <current_state_publisher/odom_tf.h>
 using namespace std;
 
 //constructor: don't need nodehandle here, but could be handy if want to add a subscriber
