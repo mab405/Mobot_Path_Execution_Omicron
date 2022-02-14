@@ -10,7 +10,7 @@ add_definitions(${EIGEN_DEFINITIONS})
 
 catkin_simple()
 
-cs_add_library(odom_tf src/OdomTf.cpp)   
+cs_add_library(current_state_publisher src/OdomTf.cpp)   
 
 cs_add_executable(current_state_publisher_demo src/odom_tf_main.cpp)
 
