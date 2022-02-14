@@ -5,7 +5,7 @@
    - Code from Professor Newman's Repo was used as refernce
      - https://github.com/wsnewman/learning_ros/tree/master/Part_4
    - For clarity we named our Assignment nodes to be consistent with the HW pdf
-     - <Our Package Variation> = <Equivalent From Reference Code>
+     - Our Package Variation = Equivalent From Reference Code
 ## Nodes
 1. current_state_publisher = odom_tf
    - This node will later combine absolute pose information (e.g. from GPS or LIDAR/map-based localization) with high-speed Odom information. For this assignment, this node should merely subscribe to the Odom topic and republish Odom on the topic “current_state”.
