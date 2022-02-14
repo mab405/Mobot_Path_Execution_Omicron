@@ -2,6 +2,9 @@
 //wsn, March 2016
 //implementation of member functions of OdomTf class
 
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <sstream>
 #include <current_state_publisher/odom_tf.h>
 using namespace std;
 
@@ -248,3 +251,23 @@ void OdomTf::amclCallback(const geometry_msgs::PoseWithCovarianceStamped& amcl_r
     amcl_ready_=true;
 
 }
+
+
+
+// START OF CODE I ADDED - NEED TO PUBLISH TO REPUBLISH TO "current_state"
+
+// convenient to put this here
+ros::Publisher current_state_publisher_;
+
+int main(int argc, char **argv) {
+    ros::init(argc, argv, "/drifty_odom");
+    ros::NodeHandle nh; 
+    ros::Publisher pub = nh.advertise<std_msgs::String>("/drifty_odom", 1);
+    current_state_publisher_ = pub; 
+    ros::spin(); //this is essentially a "while(1)" statement, except it
+    // forces refreshing wakeups upon new data arrival
+    // main program essentially hangs here, but it must stay alive to keep the callback function alive
+    return 0; // should never get here, unless roscore dies
+}
+
+// END OF ADDED CODE
