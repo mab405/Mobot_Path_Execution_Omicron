@@ -97,6 +97,8 @@ public:
             std::vector<nav_msgs::Odometry> &vec_of_states);
     void build_braking_traj(geometry_msgs::PoseStamped start_pose,
             std::vector<nav_msgs::Odometry> &vec_of_states);
+    void build_backup_traj(geometry_msgs::PoseStamped start_pose,
+            std::vector<nav_msgs::Odometry> &vec_of_states);
 
 };
 
