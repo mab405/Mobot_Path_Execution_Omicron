@@ -22,7 +22,7 @@ void currStateCallback(const nav_msgs::Odometry &odom)
 }
 
 void stop(){
-    mobot_controller::ServiceMsg srv;
+    navigation_coordinator::ServiceMsg srv;
     srv.request.start_pos = current_pose;
     srv.request.goal_pos = current_pose;
     srv.request.mode = "0"; 
@@ -36,7 +36,7 @@ bool move2coord(float goal_pose_x, float goal_pose_y)
 {
     bool success = true;
     TrajBuilder trajBuilder;
-    mobot_controller::ServiceMsg srv;
+    navigation_coordinator::ServiceMsg srv;
     geometry_msgs::PoseStamped start_pose;
     geometry_msgs::PoseStamped goal_pose_trans;
     geometry_msgs::PoseStamped goal_pose_rot;
@@ -118,7 +118,7 @@ void backUp()
 {
     ROS_INFO("Backing up");
     TrajBuilder trajBuilder;
-    mobot_controller::ServiceMsg srv;
+    navigation_coordinator::ServiceMsg srv;
     geometry_msgs::PoseStamped start_pose;
 
     start_pose.pose = current_state.pose.pose;

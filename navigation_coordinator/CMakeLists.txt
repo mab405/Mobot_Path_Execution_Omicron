@@ -131,7 +131,8 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 cs_add_libraray(traj_builder src/traj_builder.cpp)
 
-cs_add_exceutable(navigation_coordinator src/navigation_coordinator.cpp)
+cs_add_executable(navigation_coordinator src/navigation_coordinator.cpp)
+cs_add_executable(des_state_pub_srv src/des_state_pub_srv.cpp)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
