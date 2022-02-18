@@ -2,9 +2,6 @@
 //wsn, March 2016
 //implementation of member functions of OdomTf class
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include <sstream>
 #include <current_state_publisher/odom_tf.h>
 using namespace std;
 
@@ -249,9 +246,7 @@ void OdomTf::amclCallback(const geometry_msgs::PoseWithCovarianceStamped& amcl_r
     stfAmclBaseLinkWrtMap_.child_frame_id_ = "amcl_base_link";
     br_.sendTransform(stfAmclBaseLinkWrtMap_);
     amcl_ready_=true;
-
 }
-
 
 
 // START OF CODE I ADDED - NEED TO PUBLISH TO REPUBLISH TO "current_state"
