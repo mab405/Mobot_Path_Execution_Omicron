@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
 )
+find_package(catkin_simple REQUIRED)
 
 catkin_simple()
 ## System dependencies are found with CMake's conventions
@@ -129,7 +130,7 @@ include_directories(
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-cs_add_libraray(traj_builder src/traj_builder.cpp)
+cs_add_library(traj_builder src/traj_builder.cpp)
 
 cs_add_executable(navigation_coordinator src/navigation_coordinator.cpp)
 cs_add_executable(des_state_pub_srv src/des_state_pub_srv.cpp)
@@ -153,7 +154,6 @@ cs_add_executable(des_state_pub_srv src/des_state_pub_srv.cpp)
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(des_state_publisher_service traj_builder)
 target_link_libraries(navigation_coordinator traj_builder)
 #############
 ## Install ##
