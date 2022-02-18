@@ -5,6 +5,8 @@
 #include <current_state_publisher/odom_tf.h>
 using namespace std;
 
+
+
 //constructor: don't need nodehandle here, but could be handy if want to add a subscriber
 
 OdomTf::OdomTf(ros::NodeHandle* nodehandle) : nh_(*nodehandle) { // constructor
@@ -72,6 +74,7 @@ OdomTf::OdomTf(ros::NodeHandle* nodehandle) : nh_(*nodehandle) { // constructor
     stfRealOdomWrtMap_.child_frame_id_ = "odom"; 
 
     odom_subscriber_ = nh_.subscribe("/odom", 1, &OdomTf::odomCallback, this); //subscribe to odom messages
+    current_state_subscriber_  = nh_.subscribe("/odom", 1, &OdomTf::odomCallback, this); //re-subscribe to odom messages
 
     //wait for Real odom publication:
     ROS_WARN("waiting for odom publication");
@@ -102,8 +105,8 @@ void OdomTf::initializeSubscribers() {
     ROS_INFO("Initializing Subscribers");
     odom_subscriber_ = nh_.subscribe("/odom", 1, &OdomTf::odomCallback, this); //subscribe to odom messages
     amcl_subscriber_ = nh_.subscribe("/amcl_pose", 1, &OdomTf::amclCallback, this); //subscribe to odom messages
-
     // add more subscribers here, as needed
+    current_state_subscriber_ = nh_.subscribe("/odom", 1, &OdomTf::odomCallback, this); //re-subscribe to odom messages
 }
 
 //callback fnc based on Real_odom
