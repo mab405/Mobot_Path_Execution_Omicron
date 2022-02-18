@@ -5,7 +5,7 @@
 #include <string>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Quaternion.h>
-#include <des_pub_state/ServiceMsg.h>
+#include <service_msg/ServiceMsg.h>
 #include <traj_builder/traj_builder.h>
 
 using namespace std;
@@ -22,7 +22,7 @@ void currStateCallback(const nav_msgs::Odometry &odom)
 }
 
 void stop(){
-    navigation_coordinator::ServiceMsg srv;
+    service_msg::ServiceMsg srv;
     srv.request.start_pos = current_pose;
     srv.request.goal_pos = current_pose;
     srv.request.mode = "0"; 
@@ -36,7 +36,7 @@ bool move2coord(float goal_pose_x, float goal_pose_y)
 {
     bool success = true;
     TrajBuilder trajBuilder;
-    navigation_coordinator::ServiceMsg srv;
+    service_msg::ServiceMsg srv;
     geometry_msgs::PoseStamped start_pose;
     geometry_msgs::PoseStamped goal_pose_trans;
     geometry_msgs::PoseStamped goal_pose_rot;
@@ -118,7 +118,7 @@ void backUp()
 {
     ROS_INFO("Backing up");
     TrajBuilder trajBuilder;
-    navigation_coordinator::ServiceMsg srv;
+    service_msg::ServiceMsg srv;
     geometry_msgs::PoseStamped start_pose;
 
     start_pose.pose = current_state.pose.pose;
@@ -141,7 +141,7 @@ int main(int argc, char **argv)
 
     vector<geometry_msgs::PoseStamped> plan_points;
 
-    client = n.serviceClient<navigation_coordinator::ServiceMsg>("des_state_pub");
+    client = n.serviceClient<service_msg::ServiceMsg>("des_state_pub");
 
     ros::Subscriber current_state_sub = n.subscribe("/current_state", 1, currStateCallback);
 
@@ -150,11 +150,11 @@ int main(int argc, char **argv)
     float x_t1 = 1.0;
     float y_t1 = 0;
 
-    float x_t2 = 1.0
+    float x_t2 = 1.0;
     float y_t2 = 1.0;
     
     float x_t3 = 0.0;
-    float x_t3 = 1.0  
+    float y_t3 = 1.0;  
 
     float x_o = 0.0;
     float y_o = 0.0;
@@ -166,10 +166,10 @@ int main(int argc, char **argv)
     tryMove(x_t2, y_t2, 1);
 
     ROS_INFO("Step 3: Coordinate 3");
-    tryMove(x_t3, y_t3, 1;
+    tryMove(x_t3, y_t3, 1);
 
     ROS_INFO("Step 4: Home");
-    tryMove(x_o,y_t0, 1);
+    tryMove(x_o,y_o, 1);
 
 
     ROS_INFO("Shutting down motor");
