@@ -5,7 +5,7 @@
 #include <string>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Quaternion.h>
-#include <navigation_coordinator/ServiceMsg.h>
+#include <des_pub_state/ServiceMsg.h>
 #include <traj_builder/traj_builder.h>
 
 using namespace std;
@@ -141,7 +141,7 @@ int main(int argc, char **argv)
 
     vector<geometry_msgs::PoseStamped> plan_points;
 
-    client = n.serviceClient<navigation_coordinator::ServiceMsg>("des_state_publisher_service");
+    client = n.serviceClient<navigation_coordinator::ServiceMsg>("des_state_pub");
 
     ros::Subscriber current_state_sub = n.subscribe("/current_state", 1, currStateCallback);
 
