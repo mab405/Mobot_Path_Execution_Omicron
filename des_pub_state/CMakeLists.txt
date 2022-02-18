@@ -12,8 +12,14 @@ find_package(catkin_simple REQUIRED)
 #uncomment the following 4 lines to use the Eigen library
 find_package(cmake_modules REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(traj_builder)
 include_directories(${EIGEN3_INCLUDE_DIR})
 add_definitions(${EIGEN_DEFINITIONS})
+
+include_directories(
+include
+${catkin_INCLUDE_DIRS}
+${CMAKE_CURRENT_SOURCE_DIR}/Mobot_Path_Execution_Omicron/traj_builder/include)
 
 catkin_simple()
 
@@ -31,6 +37,8 @@ catkin_simple()
 # may add more of these lines for more nodes from the same package
 
 cs_add_executable(des_pub_state src/des_state_pub_srv.cpp)
+
+target_link_libraries(des_pub_state traj_builder)
 
 #the following is required, if desire to link a node in this package with a library created in this same package
 # edit the arguments to reference the named node and named library within this package
