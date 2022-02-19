@@ -35,7 +35,7 @@ public:
     OdomTf(ros::NodeHandle* nodehandle); //"main" will need to instantiate a ROS nodehandle, then pass it to the constructor
     XformUtils xform_utils;
     tf::StampedTransform put_pose_in_transform(geometry_msgs::Pose pose);
-    tf::StampedTransform get_tfBaseLinkWrtDriftyOdom() { return stfBaseLinkWrtDriftyOdom_; } 
+    tf::StampedTransform get_tfBaseLinkWrtDriftyOdom() { return stfBaseLinkWrtRealOdom_; } 
    
     tf::StampedTransform stfBaseLinkWrtOdom_; //base link w/rt odom frame; get this from tf; 
     tf::StampedTransform stfOdomWrtMap_; //odom frame w/rt map frame; get this from tf, published by amcl
@@ -49,9 +49,9 @@ public:
                                                    
 
     tf::StampedTransform tfLink2ToOdom_;  
-    tf::StampedTransform stfBaseLinkWrtDriftyOdom_;
-    tf::StampedTransform stfDriftyOdomWrtBase_;
-    tf::StampedTransform stfDriftyOdomWrtMap_;
+    tf::StampedTransform stfBaseLinkWrtRealOdom_;
+    tf::StampedTransform stfRealOdomWrtBase_;
+    tf::StampedTransform stfRealOdomWrtMap_;
     
     //illustrates a tf_listener in a class; this is somewhat more complex than creating a tf_listener in main()
     tf::TransformListener* tfListener_;   
@@ -65,6 +65,7 @@ private:
     // some objects to support subscriber, service, and publisher
     ros::Subscriber odom_subscriber_; //these will be set up within the class constructor, hiding these ugly details
     ros::Subscriber amcl_subscriber_; // subscribe to amcl message containing estimated robot pose w/rt map frame
+    ros::Subscriber current_state_subscriber_; // Add in another subscirber for Odom as per PS4
     void initializeSubscribers();
     void odomCallback(const nav_msgs::Odometry& odom_rcvd);
     void amclCallback(const geometry_msgs::PoseWithCovarianceStamped& amcl_rcvd);

@@ -27,6 +27,8 @@ catkin_simple()
 # Libraries: uncomment the following and edit arguments to create a new library
 cs_add_library(traj_builder src/traj_builder.cpp)   
 
+
+
 # Executables: uncomment the following and edit arguments to compile new nodes
 # may add more of these lines for more nodes from the same package
 cs_add_executable(traj_builder_example_main src/traj_builder_example_main.cpp)

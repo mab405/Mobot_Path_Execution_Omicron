@@ -3,7 +3,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Bool.h>
-#include <des_pub_state/ServiceMsg.h>
+#include <service_msg/ServiceMsg.h>
 #include <nav_msgs/Odometry.h>
 #include <string.h>
 
@@ -42,8 +42,8 @@ void currStateCallback(const nav_msgs::Odometry &odom)
     current_state = odom;
 }
 
-bool desStateServiceCallBack(navigation_coordinator::ServiceMsgRequest &request,
-                             navigation_coordinator::ServiceMsgResponse &response)
+bool desStateServiceCallBack(service_msg::ServiceMsgRequest &request,
+                             service_msg::ServiceMsgResponse &response)
 {
     bool success = false;
 
@@ -142,21 +142,7 @@ bool desStateServiceCallBack(navigation_coordinator::ServiceMsgRequest &request,
         return response.success = true;
         break;
 
-    case BACKUP:
-        ROS_INFO("Backing up");
-        trajBuilder.build_backup_traj(g_start_pose, vec_of_states);
-        for (auto state : vec_of_states)
-        {
-            des_state = state;
-            des_state.pose.covariance[0] = BACKUP;
-            des_state.header.stamp = ros::Time::now();
-            des_state_pub.publish(des_state);
-            looprate.sleep();
-            ros::spinOnce();
-        }
-        return response.success = true;
-        break;
-
+   
     //* illegal input. for testing only
     default:
         ROS_ERROR("Please type valid mode number");

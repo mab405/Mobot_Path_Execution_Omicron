@@ -19,7 +19,7 @@ add_definitions(${EIGEN_DEFINITIONS})
 include_directories(
 include
 ${catkin_INCLUDE_DIRS}
-${CMAKE_CURRENT_SOURCE_DIR}/Mobot_Path_Execution_Omicron/traj_builder/include)
+${CMAKE_CURRENT_SOURCE_DIR}/Mobot_Path_Execution_Omicron/traj_builder/include/traj_builder)
 
 catkin_simple()
 

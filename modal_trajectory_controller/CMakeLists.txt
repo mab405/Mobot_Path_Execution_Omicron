@@ -31,6 +31,7 @@ catkin_simple()
 # may add more of these lines for more nodes from the same package
 
 cs_add_executable(modal_trajectory_controller_wrt_odom_node src/modal_trajectory_controller_wrt_odom.cpp)
+cs_add_executable(open_loop_controller src/open_loop_controller.cpp)
 
 #the following is required, if desire to link a node in this package with a library created in this same package
 # edit the arguments to reference the named node and named library within this package
