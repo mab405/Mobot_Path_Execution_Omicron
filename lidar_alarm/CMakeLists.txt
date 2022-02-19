@@ -38,7 +38,7 @@ catkin_simple()
 
 cs_add_executable(lidar_alarm src/lidar_alarm.cpp)
 
-#target_link_libraries(des_pub_state traj_builder)
+target_link_libraries(lidar_alarm traj_builder)
 
 #the following is required, if desire to link a node in this package with a library created in this same package
 # edit the arguments to reference the named node and named library within this package
