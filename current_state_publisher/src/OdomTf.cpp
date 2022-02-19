@@ -11,6 +11,7 @@ using namespace std;
 
 OdomTf::OdomTf(ros::NodeHandle* nodehandle) : nh_(*nodehandle) { // constructor
     ROS_INFO("in class constructor of DemoTfListener");
+
     tfListener_ = new tf::TransformListener; //create a transform listener
     odom_tf_ready_ = false;
     odom_ready_ = false;
