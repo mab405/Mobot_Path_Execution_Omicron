@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 
     ros::NodeHandle nh; // create a node handle; need to pass this to the class constructor
 	ros::Publisher pub = nh.advertise<std_msgs::String>("OdomTf_node", 1);
-    ros::Publisher pub2 = nh.advertise<std_msgs::String>("OdomTf_node",1);
+    ros::Publisher pub2 = nh.advertise<std_msgs::String>("current_state_publisher",10);
 
     ROS_INFO("main: instantiating an object of type OdomTf");
     OdomTf odomTf(&nh);  //instantiate an OdomTf object and pass in pointer to nodehandle for constructor to use

@@ -55,14 +55,16 @@
   <build_depend>nav_msgs</build_depend>
   <build_depend>catkin_simple</build_depend>
   <build_depend>geometry_msgs</build_depend>
-  <build_depend>service_msg</build_depend>
+  <build_depend>des_pub_state</build_depend>
+  <build_depend>std_msg</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>traj_builder</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>geometry_msgs</run_depend>
-  <run_depend>service_msg</run_depend>
+  <run_depend>std_msg</run_depend>
+  <run_depend>message_runtime</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

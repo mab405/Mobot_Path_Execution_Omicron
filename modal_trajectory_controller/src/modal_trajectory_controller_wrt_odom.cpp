@@ -8,7 +8,25 @@
 
 // this header incorporates all the necessary #include files and defines the class "SteeringController"
 #include "steering_algorithm.h"
+#include <ros/ros.h>
+#include <geometry_msgs/Twist.h>
+#include <nav_msgs/Odometry.h>
 
+/*/
+class initalize
+
+ros::Subscriber des_state_;
+ros::Subscriber best_estimate_localiation_; 
+
+void initialize::initializeSubscribers() {
+    ros::NodeHandle nh;
+    ROS_INFO("Initializing Subscribers");
+    des_state_ = nh_.subscribe("/des_state", 1, &OdomTf::odomCallback, this); //subscribe to odom messages
+    // best_estimate_locatlization_ = nh_.subscribe("/amcl_pose", 1, &OdomTf::amclCallback, this); //subscribe to odom messages
+}
+
+void intializePublishers
+/*/
 
 SteeringController::SteeringController(ros::NodeHandle* nodehandle):nh_(*nodehandle)
 { // constructor
@@ -26,7 +44,7 @@ SteeringController::SteeringController(ros::NodeHandle* nodehandle):nh_(*nodehan
     }
     ROS_INFO("constructor: got an odom message");    
     
-    /*
+    /*/
     tfListener_ = new tf::TransformListener; 
  
     bool tferr=true;
@@ -47,7 +65,7 @@ SteeringController::SteeringController(ros::NodeHandle* nodehandle):nh_(*nodehan
     }
     ROS_INFO("tf is good");
     // from now on, tfListener will keep track of transforms from map frame to target frame
-    */
+    /*/
     
     //initialize desired state, in case this is not yet being published adequately
     des_state_ = current_odom_;  // use the current odom state
@@ -237,6 +255,14 @@ void SteeringController::lin_steering_algorithm() {
     cmd_publisher2_.publish(twist_cmd2_);     
 }
 
+
+ros::Publisher g_twist_republisher;
+
+void desStateCallback(const nav_msgs::Odometry& des_state) {
+    geometry_msgs::Twist twist = des_state.twist.twist;
+    g_twist_republisher.publish(twist);    
+}
+
 int main(int argc, char** argv) 
 {
     // ROS set-ups:
@@ -255,5 +281,15 @@ int main(int argc, char** argv)
         ros::spinOnce();
         sleep_timer.sleep();
     }
+
+    ros::Publisher g_twist_republisher;
+
+    //simply copy the desired twist and republish it to cmd_vel
+        ros::init(argc, argv, "open_loop_controller"); 
+        ros::NodeHandle n; // two lines to create a publisher object that can talk to ROS
+        g_twist_republisher = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+        ros::Subscriber des_state_subscriber = n.subscribe("/desState",1,desStateCallback); 
+        ros::spin();
+    
     return 0;
 } 

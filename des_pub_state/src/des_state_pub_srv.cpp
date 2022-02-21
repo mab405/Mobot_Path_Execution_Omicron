@@ -3,7 +3,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Bool.h>
-#include <service_msg/ServiceMsg.h>
+#include <des_pub_state/ServiceMsg.h>
 #include <nav_msgs/Odometry.h>
 #include <string.h>
 
@@ -42,8 +42,8 @@ void currStateCallback(const nav_msgs::Odometry &odom)
     current_state = odom;
 }
 
-bool desStateServiceCallBack(service_msg::ServiceMsgRequest &request,
-                             service_msg::ServiceMsgResponse &response)
+bool desStateServiceCallBack(des_pub_state::ServiceMsgRequest &request,
+                             des_pub_state::ServiceMsgResponse &response)
 {
     bool success = false;
 
@@ -57,6 +57,8 @@ bool desStateServiceCallBack(service_msg::ServiceMsgRequest &request,
 
     g_start_pose = request.start_pos;
     g_end_pose = request.goal_pos;
+
+    ROS_INFO("request mode = %d",s);
 
     double dt = 0.1;
     ros::Rate looprate(1 / dt);
@@ -101,11 +103,13 @@ bool desStateServiceCallBack(service_msg::ServiceMsgRequest &request,
             des_state_pub.publish(des_state);
             looprate.sleep();
             ros::spinOnce();
+            /*
             if (lidar_alarm)
             {
                 ROS_INFO("cannot move, obstalce");
                 return response.success = false;;        // try this
             }
+            */
         }
         return response.success = true;
         break;
@@ -126,21 +130,7 @@ bool desStateServiceCallBack(service_msg::ServiceMsgRequest &request,
         return response.success = true;
         break;
 
-    // BRAKE - HALT!!!!!!!!
-    case HALT:
-        ROS_INFO("BRAKEEEEEEEEE");
-        trajBuilder.build_braking_traj(g_start_pose, current_state.twist.twist, vec_of_states);
-        for (auto state : vec_of_states)
-        {
-            des_state = state;
-            des_state.pose.covariance[0] = HALT;
-            des_state.header.stamp = ros::Time::now();
-            des_state_pub.publish(des_state);
-            looprate.sleep();
-            ros::spinOnce();
-        }
-        return response.success = true;
-        break;
+    
 
    
     //* illegal input. for testing only
@@ -163,7 +153,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "des_state_publisher_service");
     ros::NodeHandle n;
 
-    ros::ServiceServer des_state_service = n.advertiseService("des_state_publisher_service", desStateServiceCallBack);
+    ros::ServiceServer des_state_service = n.advertiseService("des_state_pub", desStateServiceCallBack);
 
     des_state_pub = n.advertise<nav_msgs::Odometry>("/desired_state", 1);
 
