@@ -9,7 +9,7 @@
 ## Nodes
 1. current_state_publisher = odom_tf
    - This node will later combine absolute pose information (e.g. from GPS or LIDAR/map-based localization) with high-speed Odom information. For this assignment, this node should merely subscribe to the Odom topic and republish Odom on the topic “current_state”.
-2. lidar_alarm = lidar_alar (based on Part 2 Code)
+2. lidar_alarm = lidar_alarm_omicron (based on Part 2 Code)
    - Part 2 Code Reference: https://github.com/wsnewman/learning_ros/tree/master/Part_2/lidar_alarm
    - This node should be an upgrade of the STDR LIDAR alarm. It should subscribe to the mobot’s LIDAR topic and interpret safe paths towards a goal pose with sufficient look-ahead for graceful braking.
 3. modal_trajectory_controller = lin_steering
