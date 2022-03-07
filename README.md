@@ -1,5 +1,6 @@
 # Mobot_Path_Execution_Omicron
   - Problem Set 4 Assignment for Mobile Robotics
+  - Video Link: https://drive.google.com/file/d/1Fwj9bjyXDikaGAojXXvVX1_eXt8gf8tR/view?usp=sharing
   
 ## Reference Code
    - Code from Professor Newman's Repo was used as refernce
